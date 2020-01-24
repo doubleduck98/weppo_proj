@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= 'Zaloguj się'
+
+  form(method='POST' action='/login')
+    div.form-group
+      input#username.form-control(type='text' placeholder='username')
+    div.form-group
+      input#password.form-control(type='password' placeholder='password')
+    button.btn.btn-primary(type='submit') Sign in
+
+  form(method='GET' action='/register')
+    button.btn(type='submit') Register
+

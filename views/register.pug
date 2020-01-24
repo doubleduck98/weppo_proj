@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= 'Zarejestruj się'
+
+  form(method='POST' action='/register')
+    div.form-group
+      input#username.form-control(type='text' placeholder='username' name='username')
+    div.form-group
+      input#password.form-control(type='password' placeholder='password' name='password')
+    div.form-group
+      input#password2.form-control(type='password' placeholder='retype password' name='password2')
+    div.form-group
+      input#email.form-control(type='text' placeholder='email' name='email')
+    button.btn.btn-primary(type='submit') Register
