@@ -1,9 +1,5 @@
 const database = require('./databaseController');
 
-function validateUsername(username) {
-    return !database.validateUsername(username);
-}
-
 function validateEmail(email) {
     var reg = /^[^@]+@[^@]+\.[^@]/;
     return !reg.test(email);
@@ -13,15 +9,23 @@ function validatePassword(pwd, pwd2) {
     return pwd != pwd2;
 }
 
-exports.validateUser = (req, res, next) => {
+exports.validateUser = async (req, res, next) => {
     var username = req.body.username;
     var pwd = req.body.password;
     var pwd2 = req.body.password2;
     var email = req.body.email;
 
+    var usernameExists;
 
-    if (validateUsername(username)) {
-        res.send('nazwa uzytkownika zajeta');
+    await database.usernameExists(username)
+        .then(data => {
+            if (data) {
+                usernameExists = true;
+            }
+        });
+
+    if (usernameExists) {
+        res.send('nazwa użytkownika już istnieje');
     } else if (validateEmail(email)) {
         res.send('podaj poprawny email')
     } else if (validatePassword(pwd, pwd2)) {

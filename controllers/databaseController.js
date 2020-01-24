@@ -10,12 +10,12 @@ const cn = {
 
 const db = pgp(cn);
 
-exports.validateUsername = async function validateUsername(username){
-    try { 
-        const data = await db.any(`SELECT * FROM consumers WHERE username='${username}'`);
-        return typeof(data[0]) === 'undefined';
-    } catch(error) {
-        console.log(error);
+exports.usernameExists = async function usernameExists(username) {
+    try {
+        const data = await db.oneOrNone(`SELECT * FROM consumers WHERE username='${username}'`);
+        return data;
+    } catch (error) {
+
     }
 }
 
