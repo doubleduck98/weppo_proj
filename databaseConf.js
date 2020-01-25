@@ -1,9 +1,7 @@
-module.exports = {
-    config: {
-        host: 'localhost',
-        port: 5432,
-        username: 'postgres',
-        password: '123',
-        database: 'sklep_online',
-    }
-};
+exports.config = {
+    host: 'localhost',
+    port: 5432,
+    database: 'sklep_online',
+    user: 'postgres',
+    password: '123'
+}

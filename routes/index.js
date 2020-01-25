@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-var database = require('../controllers/databaseController');
 var register = require('../controllers/registerController');
+var login = require('../controllers/loginController');
 
 router.get('/', function (req, res, next) {
 	res.render('index');
@@ -12,7 +12,7 @@ router.get('/login', (req, res, next) => {
 	res.render('login');
 })
 
-router.post('/login', (req, res, next) => {
+router.post('/login', login.loginUser, (req, res, next) => {
 	res.send('zalogowano');
 });
 

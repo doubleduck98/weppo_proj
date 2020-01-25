@@ -5,9 +5,9 @@ block content
 
   form(method='POST' action='/login')
     div.form-group
-      input#username.form-control(type='text' placeholder='username')
+      input#username.form-control(type='text' placeholder='username' name='username')
     div.form-group
-      input#password.form-control(type='password' placeholder='password')
+      input#password.form-control(type='password' placeholder='password' name='password')
     button.btn.btn-primary(type='submit') Sign in
 
   form(method='GET' action='/register')

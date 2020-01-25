@@ -1,21 +1,23 @@
 const pgp = require('pg-promise')();
+const dbconfig= require('../databaseConf');
 
-const cn = {
-    host: 'localhost',
-    port: 5432,
-    database: 'sklep_online',
-    user: 'postgres',
-    password: '123'
-};
+const db = pgp(dbconfig.config);
 
-const db = pgp(cn);
+exports.authenticateUser = async function authenticateUser(user) {
+    try {
+        const data = await db.oneOrNone(`SELECT (password = crypt('${user.password}', password)) AS pwd_match FROM consumers WHERE username='${user.username}'`);
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 exports.usernameExists = async function usernameExists(username) {
     try {
         const data = await db.oneOrNone(`SELECT * FROM consumers WHERE username='${username}'`);
         return data;
     } catch (error) {
-
+        console.log(error);
     }
 }
 

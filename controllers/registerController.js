@@ -15,7 +15,7 @@ exports.validateUser = async (req, res, next) => {
     var pwd2 = req.body.password2;
     var email = req.body.email;
 
-    var usernameExists;
+    var usernameExists = false;
 
     await database.usernameExists(username)
         .then(data => {
@@ -32,7 +32,11 @@ exports.validateUser = async (req, res, next) => {
         res.send('hasła muszą sie zgadzać');
     } else if (pwd === '') {
         res.send('hasło nie może być puste');
-    } else {
+    } else if (email === ''){
+        res.send('email nie może być pusty');
+    } else if (username === ''){
+        res.send('username nie może być pusty');
+    } else{
         next();
     }
 };
