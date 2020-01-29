@@ -21,6 +21,12 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+  'secret': '9w0etfgasdg',
+  'resave': true,
+  'saveUninitialized': true,
+}));
+
 app.use('/', indexRouter);
 
 // catch 404 and forward to error handler

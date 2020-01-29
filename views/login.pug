@@ -8,8 +8,9 @@ block content
       input#username.form-control(type='text' placeholder='username' name='username')
     div.form-group
       input#password.form-control(type='password' placeholder='password' name='password')
-    button.btn.btn-primary(type='submit') Sign in
-
-  form(method='GET' action='/register')
-    button.btn(type='submit') Register
+    button.btn.btn-primary(type='submit') Zaloguj się
+    |
+    |
+    form()
+      button.btn.btn-primary(href='/register' action='none') Zarejestruj się
 
