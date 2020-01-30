@@ -1,9 +1,9 @@
 const database = require('./databaseController');
 
-exports.loginUser = async (req, res, next) => {
+exports.authenticateUser = async (req, res, next) => {
     var userExists = false;
     var goodPassword = false;
-    await database.authenticateUser(req.body)
+    await database.authenticateLogin(req.body)
         .then(data => {
             if (data) {
                 userExists = true;
@@ -14,17 +14,20 @@ exports.loginUser = async (req, res, next) => {
                 }
             }
         });
-
     if (userExists && goodPassword) {
-        await database.getUser(req.body.username)
-            .then(data => {
-                req.session.username = data.username;
-                req.session.userId = data.id;
-            });
         next();
     } else if (!userExists) {
         res.send('podany uzytkownik nie istnieje');
     } else {
         res.send('złe hasło');
     }
+}
+
+exports.loginUser = async (req, res, next) => {
+    await database.getUser(req.body.username)
+        .then(data => {
+            req.session.username = data.username;
+            req.session.userId = data.id;
+        });
+    next();
 }
