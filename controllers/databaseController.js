@@ -48,3 +48,12 @@ exports.getItems = async () => {
         console.log(error);
     }
 }
+
+exports.getItem = async (id) => {
+    try {
+        const data = await db.oneOrNone(`SELECT * FROM products WHERE id=${id}`)
+        return data;
+    } catch (error) {
+        console.log(console.log(error));
+    }
+}

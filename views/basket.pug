@@ -8,7 +8,7 @@ block content
           ui.nav-item
             a.nav-link(href='/') Home
           ui.nav-item
-            a.nav-link(href='/basket') Koszyk
+            a.nav-link.active(href='#') Koszyk
         ul.navbar-nav.form-inline
           if username
             li.nav-item
@@ -17,18 +17,19 @@ block content
               a.nav-link(href='/logout') Logout
           else
             li.nav-item
-              a.nav-link.active(href='#') Login
+              a.nav-link(href='/login') Login
             li.nav-item
               a.nav-link(href='/register') Register
 
-    form(method='POST' action='/login')
-      div.form-group
-        input#username.form-control(type='text' placeholder='username' name='username')
-      div.form-group
-        input#password.form-control(type='password' placeholder='password' name='password')
-      button.btn.btn-primary(type='submit') Zaloguj się
-      |
-      |
-      form()
-        button.btn.btn-primary(href='/register' action='none') Zarejestruj się
-
+    .container-fluid
+      .col-auto
+        each item in basket
+          .row.justify-content-center
+            .col-4.my-auto
+              img.card-img(src='' +item.img alt='')
+            .col-4.my-auto.text-center
+              p #{item.name}
+            .col-2.my-auto.text-center
+              p #{item.price} KK
+            .col-2.my-auto.text-center
+              p #{item.count}
