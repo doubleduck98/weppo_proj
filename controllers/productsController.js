@@ -28,9 +28,7 @@ exports.addToCart = async (req, res, next) => {
                 data.count = 1;
                 req.session.basket.push(data);
             })
-            .catch(error => {
-                res.send('unexpected error');
-            });
     }
+    req.flash('basket', 'Pomyślnie dodano do koszyka!');
     next();
 }

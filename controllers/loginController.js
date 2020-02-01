@@ -17,9 +17,15 @@ exports.authenticateUser = async (req, res, next) => {
     if (userExists && goodPassword) {
         next();
     } else if (!userExists) {
-        res.send('podany uzytkownik nie istnieje');
+        req.flash('login', 'Podany uzytkownik nie istnieje!');
+        res.render('login', {
+            alert: req.flash('login'),
+        });
     } else {
-        res.send('złe hasło');
+        req.flash('login', 'Złe hasło!');
+        res.render('login', {
+            alert: req.flash('login'),
+        });
     }
 }
 
@@ -30,4 +36,17 @@ exports.loginUser = async (req, res, next) => {
             req.session.userId = data.id;
         });
     next();
+}
+
+exports.authenticateAdmin = (req, res, next) => {
+    if(req.body.password === 'admin') {
+        req.session.username = 'admin';
+        req.session.userId = -1;
+        next()
+    } else {
+        req.flash('login', 'Złe hasło!');
+        res.render('loginAdmin', {
+            alert: req.flash('login'),
+        })
+    }
 }

@@ -1,10 +1,9 @@
 extends layout
 
 block content
-  - var addToBasket = function addToBasket(item)  { 
-  - console.log(item);
-  - basket.push(item); 
-  - }
+  if basketInfo != ''
+    .alert.alert-success(role='alert')
+      != basketInfo
   block body
     nav.navbar.navbar-expand.navbar-light.bg-light
       a.navbar-brand Sklepik Here
@@ -13,6 +12,11 @@ block content
             a.nav-link.active(href='/') Home
           ui.nav-item
             a.nav-link(href='/basket') Koszyk
+          if username === 'admin'
+            ui.nav-item
+              a.nav-link(href='/orders') Zamówienia
+            ui.nav-item
+              a.nav-link(href='/users') Użytkownicy
         ul.navbar-nav.form-inline
           if username
             li.nav-item

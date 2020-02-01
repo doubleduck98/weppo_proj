@@ -20,19 +20,11 @@ block content
               a.nav-link(href='/logout') Logout
           else
             li.nav-item
-              a.nav-link.active(href='#') Login
+              a.nav-link(href='#') Login
             li.nav-item
               a.nav-link(href='/register') Register
 
     .container
-      form#f2(method='GET' action='/register' type='hidden')
-      form#f1(method='POST' action='/login')
-        div.form-group
-          input#username.form-control(type='text' placeholder='username' name='username')
-        div.form-group
-          input#password.form-control(type='password' placeholder='password' name='password')
-        button.btn.btn-primary(type='submit' form='f1') Zaloguj się
-        |
-        |
-        button.btn.btn-primary(onclick='/register' form='f2') Zarejestruj się
-
+      form(method='POST' action='/admin')
+        input#password.form-control(type='password' placeholder='potwierdź hasło administratora' name='password')
+        button.btn.btn-primary(type='submit') Zaloguj się

@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var logger = require('morgan');
+var flash = require('connect-flash');
 
 var indexRouter = require('./routes/index');
 
@@ -20,9 +21,10 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash());
 
 app.use(session({
-  'secret': '9w0etfgasdg',
+  'secret': 'essa sito',
   'resave': true,
   'saveUninitialized': true,
 }));

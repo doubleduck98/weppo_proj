@@ -1,6 +1,9 @@
 extends layout
 
 block content
+  if alert
+    .alert.alert-danger(role='alert')
+      != alert
   block body
     nav.navbar.navbar-expand.navbar-light.bg-light
       a.navbar-brand Sklepik Here

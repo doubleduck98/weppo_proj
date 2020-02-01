@@ -25,18 +25,36 @@ exports.validateUser = async (req, res, next) => {
         });
 
     if (usernameExists) {
-        res.send('nazwa użytkownika już istnieje');
+        req.flash('register', 'Nazwa użytkownika już istnieje!')
+        res.render('register', {
+            alert: req.flash('register'),
+        });
     } else if (validateEmail(email)) {
-        res.send('podaj poprawny email')
+        req.flash('register', 'Podaj poprawny email!')
+        res.render('register', {
+            alert: req.flash('register'),
+        });
     } else if (validatePassword(pwd, pwd2)) {
-        res.send('hasła muszą sie zgadzać');
+        req.flash('register', 'Hasła muszą sie zgadzać!')
+        res.render('register', {
+            alert: req.flash('register'),
+        });
     } else if (pwd === '') {
-        res.send('hasło nie może być puste');
-    } else if (email === ''){
-        res.send('email nie może być pusty');
-    } else if (username === ''){
-        res.send('username nie może być pusty');
-    } else{
+        req.flash('register', 'Hasło nie może być puste!')
+        res.render('register', {
+            alert: req.flash('register'),
+        });
+    } else if (email === '') {
+        req.flash('register', 'Adres email nie może być pusty!')
+        res.render('register', {
+            alert: req.flash('register'),
+        });
+    } else if (username === '') {
+        req.flash('register', 'Nazwa użytkownika nie może być pusta!')
+        res.render('register', {
+            alert: req.flash('register'),
+        });
+    } else {
         next();
     }
 };
