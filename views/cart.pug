@@ -26,7 +26,7 @@ block content
             li.nav-item
               a.nav-link(href='/register') Register
 
-    .container
+    .container-fluid.pull-left
       h1 Suma przedmiotów w koszyku:
         h2= cart.reduce((total, item) => {return total + item.price}, 0) + ' KK'
       form(type='hidden' action='/cart/buy' method='POST')
