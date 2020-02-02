@@ -8,7 +8,12 @@ block content
           ui.nav-item
             a.nav-link(href='/') Home
           ui.nav-item
-            a.nav-link.active(href='#') Koszyk
+            a.nav-link.active(href='/cart') Koszyk
+          if id === -1
+            ui.nav-item
+              a.nav-link(href='/orders') Zamówienia
+            ui.nav-item
+              a.nav-link(href='/users') Użytkownicy
         ul.navbar-nav.form-inline
           if username
             li.nav-item
@@ -21,9 +26,22 @@ block content
             li.nav-item
               a.nav-link(href='/register') Register
 
+    .container
+      h1 Suma przedmiotów w koszyku:
+        h2= cart.reduce((total, item) => {return total + item.price}, 0) + ' KK'
+      form(type='hidden' action='/cart/buy' method='POST')
+        button.btn.btn-primary(action='submit') Kup przedmioty
+
     .container-fluid
       .col-auto
-        each item in basket
+        .row.justify-content-center
+          .col-8.my-auto.text-center
+            h3 PRZEDMIOT
+          .col-2.my-auto.text-center
+            h3 CENA
+          .col-2.my-auto.text-center
+            h3 ILOŚĆ
+        each item in cart
           .row.justify-content-center
             .col-4.my-auto
               img.card-img(src='' +item.img alt='')

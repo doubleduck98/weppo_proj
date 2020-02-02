@@ -12,7 +12,24 @@ exports.getUser = async (username) => {
     }
 };
 
-// todo: jakieś true/false zamiast data zwracaj byku
+exports.getUsers = async () => {
+    try {
+        const data = await db.many(`SELECT id, username, email FROM consumers`);
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.addUser = async (newUser) => {
+    try {
+        await db.none(`INSERT INTO consumers(username, password, email) 
+                VALUES('${newUser.username}', crypt('${newUser.password}', gen_salt('bf')), '${newUser.email}')`);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 exports.authenticateLogin = async (user) => {
     try {
         const data = await db.oneOrNone(`SELECT password = crypt('${user.password}', password) AS pwd_match FROM consumers WHERE username='${user.username}'`);
@@ -31,10 +48,10 @@ exports.usernameExists = async (username) => {
     }
 }
 
-exports.addUser = async (newUser) => {
+exports.getItem = async (id) => {
     try {
-        await db.none(`INSERT INTO consumers(username, password, email) 
-                VALUES('${newUser.username}', crypt('${newUser.password}', gen_salt('bf')), '${newUser.email}')`);
+        const data = await db.oneOrNone(`SELECT * FROM products WHERE id=${id}`)
+        return data;
     } catch (error) {
         console.log(error);
     }
@@ -49,11 +66,36 @@ exports.getItems = async () => {
     }
 }
 
-exports.getItem = async (id) => {
+exports.getItemsFiltered = async (searchQuery) => {
     try {
-        const data = await db.oneOrNone(`SELECT * FROM products WHERE id=${id}`)
+        const data = await db.manyOrNone(`SELECT * FROM products WHERE LOWER(name) LIKE LOWER('%${searchQuery}%') OR LOWER(description) LIKE LOWER('%${searchQuery}%')`);
         return data;
     } catch (error) {
-        console.log(console.log(error));
+        console.log(error);
+    }
+}
+
+exports.addItem = async (item) => {
+    try {
+        await db.none(`INSERT INTO products(name, price, description, img) VALUES('${item.name}', ${item.price}, '${item.description}', '${item.img}')`);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.getOrders = async () => {
+    try {
+        const data = await db.manyOrNone('SELECT * FROM orders');
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.addOrder = async (order) => {
+    try {
+        await db.none(`INSERT INTO orders(item, amount, date) VALUES('${order.itemName}', ${order.amount}, current_timestamp)`);
+    } catch (error) {
+        console.log(error);
     }
 }

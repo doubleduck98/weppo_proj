@@ -4,6 +4,9 @@ block content
   if alert
     .alert.alert-danger(role='alert')
       != alert
+  if addFlash != ''
+    .alert.alert-success(role='alert')
+      != addFlash
   block body
     nav.navbar.navbar-expand.navbar-light.bg-light
       a.navbar-brand Sklepik Here
@@ -12,6 +15,10 @@ block content
             a.nav-link(href='/') Home
           ui.nav-item
             a.nav-link(href='/cart') Koszyk
+          ui.nav-item
+            a.nav-link(href='/orders') Zamówienia
+          ui.nav-item
+            a.nav-link(href='/users') Użytkownicy
         ul.navbar-nav.form-inline
           if username
             li.nav-item
@@ -22,15 +29,15 @@ block content
             li.nav-item
               a.nav-link(href='/login') Login
             li.nav-item
-              a.nav-link.active(href='#') Register
+              a.nav-link(href='#') Register
 
-    form(method='POST' action='/register')
+    form(method='POST' action='/addProduct')
       div.form-group
-        input#username.form-control(type='text' placeholder='username' name='username')
+        input#name.form-control(type='text' placeholder='name' name='name')
       div.form-group
-        input#password.form-control(type='password' placeholder='password' name='password')
+        input#price.form-control(type='text' placeholder='price' name='price')
       div.form-group
-        input#password2.form-control(type='password' placeholder='retype password' name='password2')
+        textarea#description.form-control(type='text' placeholder='description' name='description')
       div.form-group
-        input#email.form-control(type='text' placeholder='email' name='email')
-      button.btn.btn-primary(type='submit') Register
+        input#img.form-control(rows='3' type='text' placeholder='img-url' name='img')
+      button.btn.btn-primary(type='submit') Dodaj produkt

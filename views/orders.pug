@@ -1,0 +1,50 @@
+extends layout
+
+block content
+  block body
+    nav.navbar.navbar-expand.navbar-light.bg-light
+      a.navbar-brand Sklepik Here
+        ul.navbar-nav.mr-auto
+          ui.nav-item
+            a.nav-link(href='/') Home
+          ui.nav-item
+            a.nav-link(href='/cart') Koszyk
+          if id === -1
+            ui.nav-item
+              a.nav-link.active(href='/orders') Zamówienia
+            ui.nav-item
+              a.nav-link(href='/users') Użytkownicy
+        ul.navbar-nav.form-inline
+          if username
+            li.nav-item
+              a Witaj #{username}
+            li.nav-item
+              a.nav-link(href='/logout') Logout
+          else
+            li.nav-item
+              a.nav-link(href='/login') Login
+            li.nav-item
+              a.nav-link(href='/register') Register
+
+
+    .container-fluid
+      .container-fluid
+        form(type='hidden' action='/orders/addOrder' method='GET')
+          button.btn.btn-primary(action='submit') Złóż zamówienie
+        .row.justify-content-center
+          .col-4.my-auto.text-center
+            h3 PRZEDMIOT
+          .col-3.my-auto.text-center
+            h3 ILOŚĆ           
+          .col-5.my-auto.text-center
+            h3 DATA ZŁOŻENIA ZAMÓWIENIA
+      each item in orders
+        .container-fluid
+          .row.justify-content-center
+            .col-4.my-auto.text-center
+              p #{item.item}
+            .col-3.my-auto.text-center
+              p #{item.amount}            
+            .col-5.my-auto.text-center
+              p #{item.date}
+

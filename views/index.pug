@@ -1,9 +1,9 @@
 extends layout
 
 block content
-  if basketInfo != ''
+  if cartFlash != ''
     .alert.alert-success(role='alert')
-      != basketInfo
+      != cartFlash
   block body
     nav.navbar.navbar-expand.navbar-light.bg-light
       a.navbar-brand Sklepik Here
@@ -11,13 +11,16 @@ block content
           ui.nav-item
             a.nav-link.active(href='/') Home
           ui.nav-item
-            a.nav-link(href='/basket') Koszyk
-          if username === 'admin'
+            a.nav-link(href='/cart') Koszyk
+          if id === -1
             ui.nav-item
               a.nav-link(href='/orders') Zamówienia
             ui.nav-item
               a.nav-link(href='/users') Użytkownicy
         ul.navbar-nav.form-inline
+          form.form-inline.my-2(action='/search' method='POST')
+            input.form-control(type='search' placeholder='Szukaj' aria-label='search' name='searchQuery')
+            button.btn.btn-outline-primary.my-2.my-sm-0(type='submit') Szukaj
           if username
             li.nav-item
               a Witaj #{username}
@@ -29,12 +32,16 @@ block content
             li.nav-item
               a.nav-link(href='/register') Register
 
+
     .container-fluid
+      if id === -1
+        form(type='hidden' method='GET' action='/addProduct')
+          button.btn.btn-primary(type='submit') Dodaj produkt
       .col-auto
         .row.justify-content-center
           each item in products
             .col-xs-8.col-sm-8.col-md-8.col-lg-4.col-xl-3
-              form(method='POST' action='/basket')
+              form(method='POST' action='/cart')
                 .card.h-100
                   img.card-img-top(src='' +item.img alt='')
                   .card-body

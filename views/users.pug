@@ -1,0 +1,47 @@
+extends layout
+
+block content
+  block body
+    nav.navbar.navbar-expand.navbar-light.bg-light
+      a.navbar-brand Sklepik Here
+        ul.navbar-nav.mr-auto
+          ui.nav-item
+            a.nav-link(href='/') Home
+          ui.nav-item
+            a.nav-link(href='/cart') Koszyk
+          if id === -1
+            ui.nav-item
+              a.nav-link(href='/orders') Zamówienia
+            ui.nav-item
+              a.nav-link.active(href='/users') Użytkownicy
+        ul.navbar-nav.form-inline
+          if username
+            li.nav-item
+              a Witaj #{username}
+            li.nav-item
+              a.nav-link(href='/logout') Logout
+          else
+            li.nav-item
+              a.nav-link(href='/login') Login
+            li.nav-item
+              a.nav-link(href='/register') Register
+
+    .container-fluid
+      .container-fluid
+        .row.justify-content-center
+          .col-2.my-auto.text-center
+            h3 ID
+          .col-5.my-auto.text-center
+            h3 NAZWA UŻYTKOWNIKA           
+          .col-5.my-auto.text-center
+            h3 ADRES EMAIL
+      each user in users
+        .container-fluid
+          .row.justify-content-center
+            .col-2.my-auto.text-center
+              p #{user.id}
+            .col-5.my-auto.text-center
+              p #{user.username}            
+            .col-5.my-auto.text-center
+              p #{user.email}
+

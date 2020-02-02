@@ -6,7 +6,7 @@ var session = require('express-session');
 var logger = require('morgan');
 var flash = require('connect-flash');
 
-var indexRouter = require('./routes/index');
+var indexRouter = require('./routes/router');
 
 var app = express();
 
