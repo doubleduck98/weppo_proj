@@ -38,7 +38,7 @@ block content
         form(type='hidden' method='GET' action='/addProduct')
           button.btn.btn-primary(type='submit') Dodaj produkt
       .col-auto
-        .row.justify-content-center
+        .row
           each item in products
             .col-xs-8.col-sm-8.col-md-8.col-lg-4.col-xl-3
               form(method='POST' action='/cart')
